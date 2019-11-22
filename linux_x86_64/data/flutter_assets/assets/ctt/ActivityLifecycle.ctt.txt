@@ -1,0 +1,52 @@
+class CameraActivity : AppCompatActivity() {
+    private var mCamera: Camera? = null
+    private var mPreview: CameraPreview? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_camera)
+
+        // Create an instance of Camera
+        mCamera = getCameraInstance()
+
+        mPreview = mCamera?.let {
+            // Create our Preview view
+            CameraPreview(this, it)
+        }
+
+        // Set the Preview view as the content of our activity.
+        mPreview?.also {
+            val preview: FrameLayout = findViewById(R.id.camera_preview)
+            preview.addView(it)
+        }
+
+        createThreads()
+    }
+
+    override fun onStart() {
+        launchAnimation()
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        startCamera()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        releaseCamera()
+    }
+
+
+    override fun onStop() {
+        stopAnimation()
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        releaseThreads()
+        super.onDestroy()
+    }
+}
+

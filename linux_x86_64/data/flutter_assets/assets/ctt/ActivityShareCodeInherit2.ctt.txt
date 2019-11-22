@@ -1,0 +1,51 @@
+// Refactor with inheritance
+abstract class BaseActivity<T, S>(protected val presenter: S) :
+    AppCompatActivity() where T : ContractView, S: ContractPresenter<T> {
+
+    override fun onStart() {
+        super.onStart()
+
+        presenter.subscribe(getView())
+    }
+
+    abstract fun getView(): T
+
+    override fun onStop() {
+        super.onStop()
+
+        presenter.unsubscribe()
+    }
+}
+
+class HelloActivity : BaseActivity<HelloContractView, HelloContractPresenter>(HelloPresenter()), HelloContractView {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_hello)
+        textView.setOnClickListener { presenter.getMessage() }
+    }
+
+    override fun getView(): HelloContractView = this
+
+    override fun showMessage(message: String) {
+        textView.text = message
+    }
+
+}
+
+class HelloPresenter : ContractPresenter<HelloContractView>, HelloContractPresenter {
+    override var view: HelloContractView? = null
+
+    override fun subscribe(v: HelloContractView) {
+        view = v
+        getMessage()
+    }
+
+    override fun unsubscribe() {
+        view = null
+    }
+
+    override fun getMessage() {
+        view?.showMessage("Hello :)")
+    }
+}
