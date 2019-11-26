@@ -11,10 +11,13 @@ GDG Toulouse slides of android lifeycle observer talk
 2. Control with keyboard
 
 # Shorcuts
+
+```
 Directionals arrows : 
 - left and right to change slides
 - up and down to scroll
 F : fullscreen mode
 ESC: go to slide
+```
 
 
