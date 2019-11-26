@@ -3,7 +3,7 @@ GDG Toulouse slides of android lifeycle observer talk
 
 # Choose your operating system target
 - linux
-- windows (coming soon)
+- windows
 - macos (coming soon)
 
 # How to use
@@ -19,5 +19,4 @@ Directionals arrows :
 F : fullscreen mode
 ESC: go to slide
 ```
-
 

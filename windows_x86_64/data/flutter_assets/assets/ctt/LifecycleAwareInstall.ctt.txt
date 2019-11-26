@@ -1,0 +1,18 @@
+// build.gradle of your root project, please add google() repository
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+// build.gradle of your project, please add the following dependencies
+dependencies {
+    def lifecycle_version = "2.1.0"
+
+    //      AndroidX libraries use this lightweight import for Lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
+
+    //      For Kotlin use kapt instead of annotationProcessor
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+}

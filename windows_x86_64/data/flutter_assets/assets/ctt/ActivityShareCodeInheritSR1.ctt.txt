@@ -1,0 +1,59 @@
+// Split BaseActivity into multiple abstract activities to apply Single Responsability principle
+abstract class BaseActivity :
+    AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(getLayout())
+    }
+
+    abstract fun getLayout(): Int
+}
+
+abstract class CustomHeaderActivity : BaseActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        findViewById<TextView>(R.id.header_custom_title).text = getString(getCustomTitle()) // HEADER
+    }
+
+    abstract fun getCustomTitle(): Int
+}
+
+abstract class TrackingActivity : CustomHeaderActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        TrackingService.track(getName()) // TRACKING
+    }
+
+    abstract fun getName(): String
+}
+
+abstract class PresenterActivity<T, S>(protected val presenter: S) :
+    TrackingActivity() where T : ContractView, S: ContractPresenter<T> {
+
+    override fun onStart() {
+        super.onStart()
+        presenter.subscribe(getView())                                                      // PRESENTER
+    }
+
+    abstract fun getView(): T
+
+    override fun onStop() {
+        super.onStop()
+        presenter.unsubscribe()                                                             // PRESENTER
+    }
+}
+
+class HelloActivity : PresenterActivity<HelloContractView>(HelloPresenter()), HelloContractView {
+    override fun getView(): HelloContractView = this
+    override fun getCustomTitle(): Int = R.string.hello_title
+    override fun getLayout(): Int = R.layout.activity_hello
+    override fun getName(): String = "Hello"
+
+    override fun showMessage(message: String) {
+        textView.text = message
+    }
+
+}
