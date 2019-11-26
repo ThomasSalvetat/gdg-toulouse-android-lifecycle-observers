@@ -5,3 +5,16 @@ GDG Toulouse slides of android lifeycle observer talk
 - linux
 - windows (coming soon)
 - macos (coming soon)
+
+# How to use
+1. Download and execute binary
+2. Control with keyboard
+
+# Shorcuts
+Directionals arrows : 
+- left and right to change slides
+- up and down to scroll
+F : fullscreen mode
+ESC: go to slide
+
+
