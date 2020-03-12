@@ -4,7 +4,7 @@ GDG Toulouse slides of android lifeycle observer talk
 # Choose your operating system target
 - linux
 - windows
-- macos (coming soon)
+- macos
 
 # How to use
 1. Download and execute binary

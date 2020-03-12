@@ -1,0 +1,7 @@
+val myLifecycleObserver = MyLifecycleObserver()
+
+// Subscribe observer
+lifecycle.addObserver(myLifecycleObserver)
+
+// Unsubscribe observer
+lifecycle.removeObserver(myLifecycleObserver)
